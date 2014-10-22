@@ -54,23 +54,18 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 <div id="header">
 <h1 class="title">pollutantmean.R</h1>
 <h4 class="author"><em>chach_000</em></h4>
-<h4 class="date"><em>Tue Sep 30 12:40:20 2014</em></h4>
+<h4 class="date"><em>Sun Oct 19 16:46:27 2014</em></h4>
 </div>
 
 
 <pre class="r"><code>pollutantmean &lt;- function(directory, pollutant,id = 1:332){
-  file.path(getwd(),directory)
-  
-    x&lt;-read.csv(paste(as.character(id),&quot;.csv&quot;,sep = &quot;&quot;),header = TRUE)
-  
-  if(pollutant == &quot;sulfate&quot;){
-    mean(x[,2])
-    
-  }else if(pollutant == &quot;nitrate&quot;){
-    mean(x[,3], na.rm=TRUE)
+  filelist &lt;- list.files(directory, full.names = TRUE)
+  airpol &lt;- data.frame()
+  for(i in id){
+    airpol &lt;- rbind(airpol,read.csv(filelist[i]))
   }
-  
-  
+  pol_sub &lt;- airpol[[pollutant]]
+  mean(pol_sub, na.rm = TRUE)
 }</code></pre>
 
 
